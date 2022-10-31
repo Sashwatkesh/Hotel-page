@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Log-in{% endblock %}
+{% block body %}
+
+<div class="container mt-5 pt-5 col-6">
+  <h2 class="col-3">Login</h2>
+    <form method="post">
+      {% csrf_token %}
+      {% include "messages.html" %}
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" name="username" class="form-control" id="username" aria-describedby="username">
+        
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+        </div>
+       
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+</div>
+ 
+{% endblock %}

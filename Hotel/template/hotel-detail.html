@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block title %}Hotel-detail{% endblock %}
+{% block body %}
+
+<h5>Hotel detail</h5>
+<div class="container">
+    <div class="row search-card-result">
+        <h1>{{hotel.hotel_name}}</h1>
+        <div class="col-md-3">
+            <a href="/hotel-detail/{{hotel_obj.uid}}/">
+                <img class="img-fluid" src="/media/{{hotel.images.first.images}}" alt="Card image cap">
+            </a>
+        </div>
+        <div class="col-md-5">
+
+
+            <p>{{hotel.desc}}</p>
+            <p>
+                <span class="badge badge-primary">8.5</span> Excellent (2323 reviews)
+            </p>
+            <p>
+
+                {% for amenity in hotel.amenities.all %}
+                <b>
+                    {{amenity.amenity_name}},
+                </b>
+                {% endfor %}
+            </p>
+
+
+        </div>
+        <div class="col-md-2 border-left text-center more-offers">
+            <p>Room Count</p>
+            <p>
+                {{hotel.room_count}}
+            </p>
+            <p>Place.com</p>
+            <p></p>
+            <p class="border-top additional">${{hotel.hotel_price}}</p>
+        </div>
+        <div class="col-md-2 border-left text-center more-offers">
+
+
+            <div class="btn btn-success">View deal ></div>
+        </div>
+    </div>
+    <div class="row">
+        {% for image in hotel.images.all %}
+        <div class="col-md-3">
+            <img class="img-fluid" src="/media/{{image.images}}" alt="Card image cap">
+        </div>
+        {% endfor %}
+    </div>
+    {% if request.user.is_authenticated %}
+    <div class="container">
+        <div class="row mt-2 justify-content-between">
+            <div class="filter-card">
+                <h5>Filter</h5>
+                <form method="post">
+                    {% csrf_token %}
+                    {% include 'messages.html' %}
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label for="mintopay">Check in</label>
+                            <p>
+                                <input type="date" name="checkin" id="checkin" class="form-control">
+                            </p>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="maxtopay">Check out</label>
+                            <p>
+                                <input type="date" name="checkout" id="checkout" class="form-control">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <!--edit-->
+                            <label for="date-start">Price Range</label>: £
+                            <span id="price" class="price">1000</span>
+                            <input type="range" min="23" max="1000" value="1000" class="slider" id="myRange">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <input type="submit" class="btn btn-primary btn-block" value="Limit">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    {% else %}
+    <a href="/login/" class="btn btn-primary">Log-in</a>
+    {% endif %}
+</div>
+{% endblock %}
